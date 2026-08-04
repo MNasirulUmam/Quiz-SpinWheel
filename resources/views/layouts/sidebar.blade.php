@@ -50,7 +50,7 @@
           </g>
         </svg>
       </span>
-      <span class="app-brand-text demo menu-text fw-bold ms-2">Curhat RS</span>
+      <span class="app-brand-text demo menu-text fw-bold ms-2">{{ env('APP_NAME') }}</span>
     </a>
 
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -61,8 +61,6 @@
   <div class="menu-inner-shadow"></div>
 
   <ul class="menu-inner py-1"> 
-    <!-- line text -->
-    <!-- <li class="menu-header small text-uppercase"><span class="menu-header-text">Components</span></li> -->
     <!-- dashboard -->
     <li class="menu-item {{ request()->routeIs('home') ? 'active' : '' }}">
       <a href="{{ route('home') }}" class="menu-link">
@@ -90,30 +88,20 @@
       </ul>
     </li>
     <!-- Extended Pengaturan -->
-    <li class="menu-item">
+    <li class="menu-item {{ request()->routeIs('divisions.*') || request()->routeIs('complaint_types.*') ? 'active open' : '' }}">
       <a href="javascript:void(0)" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-cylinder"></i>
         <div data-i18n="Extended UI">Master Data</div>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="" class="menu-link">
-            <div data-i18n="Perfect Scrollbar">Asset</div>
+        <li class="menu-item {{ request()->routeIs('divisions.*') ? 'active' : '' }}">
+          <a href="{{ route('divisions.index') }}" class="menu-link">
+            <div data-i18n="Perfect Scrollbar">Division</div>
           </a>
         </li>
-        <li class="menu-item">
-          <a href="" class="menu-link">
-            <div data-i18n="Text Divider">Locations</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="" class="menu-link">
-            <div data-i18n="Text Divider">Suppliers</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="" class="menu-link">
-            <div data-i18n="Text Divider">Status</div>
+        <li class="menu-item {{ request()->routeIs('complaint_types.*') ? 'active' : '' }}">
+          <a href="{{ route('complaint_types.index') }}" class="menu-link">
+            <div data-i18n="Text Divider">Complaint Type</div>
           </a>
         </li>
       </ul>

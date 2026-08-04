@@ -15,8 +15,12 @@ Auth::routes([
     'reset'    => false
 ]);
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('roles', RoleController::class);
-Route::resource('users', UserController::class);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('divisions', \App\Http\Controllers\DivisionController::class);
+    Route::resource('complaint_types', \App\Http\Controllers\ComplaintTypeController::class);
+});
 
 
