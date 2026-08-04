@@ -10,19 +10,13 @@
                 <a href="{{ route('complaint_types.create') }}" class="btn btn-md btn-info">Create Complaint Type</a>
             </div>
             
-            @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-
             <div class="card-datatable table-responsive">
                 <table class="dt-responsive table border-top" id="complaintTypeTable" style="width:100%">
                     <thead>
                         <tr>
-                            <th>No</th>
+                            <th style="width: 5%">No</th>
                             <th>Complaint Type Name</th>
-                            <th>Actions</th>
+                            <th style="width: 15%">Actions</th>
                         </tr>
                     </thead>
                     <tbody>

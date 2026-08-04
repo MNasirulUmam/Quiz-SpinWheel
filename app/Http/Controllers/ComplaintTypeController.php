@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 
 class ComplaintTypeController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:complaint_type-list|complaint_type-create|complaint_type-edit|complaint_type-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:complaint_type-create', ['only' => ['create','store']]);
+         $this->middleware('permission:complaint_type-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:complaint_type-delete', ['only' => ['destroy']]);
+    }
     public function index()
     {
         $complaint_types = \App\Models\ComplaintType::latest()->get();

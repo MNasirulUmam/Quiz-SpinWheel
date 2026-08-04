@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 
 class DivisionController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:division-list|division-create|division-edit|division-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:division-create', ['only' => ['create','store']]);
+         $this->middleware('permission:division-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:division-delete', ['only' => ['destroy']]);
+    }
     public function index()
     {
         $divisions = \App\Models\Division::latest()->get();

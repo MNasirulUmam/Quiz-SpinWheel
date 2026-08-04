@@ -2,7 +2,7 @@
 
 <html
   lang="en"
-  class="light-style layout-menu-fixed layout-compact"
+  class="light-style layout-menu-fixed layout-compact layout-menu-collapsed"
   dir="ltr"
   data-theme="theme-default"
   data-assets-path="{{ asset('assets/') }}"
@@ -40,6 +40,47 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
 
     <!-- Page CSS -->
+    <style>
+      @media (min-width: 1200px) {
+        .layout-menu-collapsed .layout-menu { width: 5.25rem !important; }
+        .layout-menu-collapsed .layout-page { padding-left: 5.25rem !important; }
+        .layout-menu-collapsed .layout-menu:hover { width: 16.25rem !important; }
+        
+        .layout-menu-collapsed .app-brand-text,
+        .layout-menu-collapsed .menu-sub,
+        .layout-menu-collapsed .menu-item .menu-link > div:not(.badge) { display: none !important; }
+        
+        .layout-menu-collapsed .layout-menu:hover .app-brand-text,
+        .layout-menu-collapsed .layout-menu:hover .menu-sub,
+        .layout-menu-collapsed .layout-menu:hover .menu-item .menu-link > div:not(.badge) { display: block !important; }
+        
+        .layout-menu-collapsed .menu-toggle::after { display: none !important; }
+        .layout-menu-collapsed .layout-menu:hover .menu-toggle::after { display: block !important; }
+        
+        .layout-menu-collapsed .menu-item .menu-link .menu-icon {
+          margin-left: -2rem !important;
+          width: 5.25rem !important;
+          text-align: center !important;
+          margin-right: 0 !important;
+          display: block !important;
+        }
+        .layout-menu-collapsed .layout-menu:hover .menu-item .menu-link .menu-icon {
+          margin-left: 0 !important;
+          width: 1.5rem !important;
+          margin-right: 0.5rem !important;
+        }
+        
+        .layout-menu-collapsed .app-brand { padding-left: 0 !important; justify-content: center !important; }
+        .layout-menu-collapsed .layout-menu:hover .app-brand { padding-left: 1.5rem !important; justify-content: flex-start !important; }
+        
+        @media (min-width: 1200px) {
+            .layout-menu .app-brand .layout-menu-toggle {
+                display: block !important;
+                opacity: 1 !important;
+            }
+        }
+      }
+    </style>
 
     <!-- Helpers -->
     <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
@@ -106,12 +147,52 @@
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}?v={{ time() }}"></script>
+
+    <!-- Custom Toggle JS -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const toggleBtn = document.querySelector('.custom-toggle');
+        const html = document.documentElement;
+        
+        if(toggleBtn) {
+          // Prevent main.js from throwing error if toggleCollapsed is missing in free version
+          if(window.Helpers && !window.Helpers.toggleCollapsed) {
+            window.Helpers.toggleCollapsed = function() {};
+          }
+
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Toggle the class on html
+            html.classList.toggle('layout-menu-collapsed');
+            
+            // Change the icon
+            const icon = toggleBtn.querySelector('i');
+            if(html.classList.contains('layout-menu-collapsed')) {
+              icon.classList.remove('bx-chevron-left');
+              icon.classList.add('bx-chevron-right');
+            } else {
+              icon.classList.remove('bx-chevron-right');
+              icon.classList.add('bx-chevron-left');
+            }
+          });
+          
+          // Initial check for icon state based on current class
+          const icon = toggleBtn.querySelector('i');
+          if(html.classList.contains('layout-menu-collapsed')) {
+            icon.classList.remove('bx-chevron-left');
+            icon.classList.add('bx-chevron-right');
+          }
+        }
+      });
+    </script>
 
     <!-- Page JS -->
 
     <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

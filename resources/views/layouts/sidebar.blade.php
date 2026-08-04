@@ -53,7 +53,7 @@
       <span class="app-brand-text demo menu-text fw-bold ms-2">{{ env('APP_NAME') }}</span>
     </a>
 
-    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block custom-toggle">
       <i class="bx bx-chevron-left bx-sm align-middle"></i>
     </a>
   </div>
@@ -69,43 +69,55 @@
       </a>
     </li>
     <!-- Extended Pengaturan -->
+    @canany(['users-list', 'role-list'])
     <li class="menu-item {{ request()->routeIs('users.*') || request()->routeIs('roles.*') ? 'active open' : '' }}">
       <a href="javascript:void(0)" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-cog"></i>
         <div data-i18n="Extended UI">Settings</div>
       </a>
       <ul class="menu-sub">
+        @can('users-list')
         <li class="menu-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
           <a href="{{ route('users.index') }}" class="menu-link">
             <div data-i18n="Perfect Scrollbar">User Management</div>
           </a>
         </li>
+        @endcan
+        @can('role-list')
         <li class="menu-item {{ request()->routeIs('roles.*') ? 'active open' : '' }}">
           <a href="{{ route('roles.index') }}" class="menu-link">
             <div data-i18n="Text Divider">Role Management</div>
           </a>
         </li>
+        @endcan
       </ul>
     </li>
-    <!-- Extended Pengaturan -->
+    @endcanany
+    <!-- Master Data -->
+    @canany(['division-list', 'complaint_type-list'])
     <li class="menu-item {{ request()->routeIs('divisions.*') || request()->routeIs('complaint_types.*') ? 'active open' : '' }}">
       <a href="javascript:void(0)" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-cylinder"></i>
         <div data-i18n="Extended UI">Master Data</div>
       </a>
       <ul class="menu-sub">
+        @can('division-list')
         <li class="menu-item {{ request()->routeIs('divisions.*') ? 'active' : '' }}">
           <a href="{{ route('divisions.index') }}" class="menu-link">
             <div data-i18n="Perfect Scrollbar">Division</div>
           </a>
         </li>
+        @endcan
+        @can('complaint_type-list')
         <li class="menu-item {{ request()->routeIs('complaint_types.*') ? 'active' : '' }}">
           <a href="{{ route('complaint_types.index') }}" class="menu-link">
             <div data-i18n="Text Divider">Complaint Type</div>
           </a>
         </li>
+        @endcan
       </ul>
     </li>
+    @endcanany
     <!-- User interface -->
     <li class="menu-item">
       <a href="javascript:void(0)" class="menu-link menu-toggle">

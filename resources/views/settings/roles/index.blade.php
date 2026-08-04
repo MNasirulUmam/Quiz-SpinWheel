@@ -5,7 +5,6 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
         <div class="card">
-
             <h5 class="card-header">Role List</h5>
             @can('role-create')
             <div class="d-flex justify-content-start mb-3" >
@@ -16,10 +15,10 @@
                 <table class="dt-responsive table border-top" id="roleTable" style ="width:100%">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Level</th>
+                            <th style="width: 5%">No</th>
+                            <th style="width: 20%">Level</th>
                             <th>Hak Akses</th>
-                            <th>Aksi</th>
+                            <th style="width: 15%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -10,19 +10,13 @@
                 <a href="{{ route('divisions.create') }}" class="btn btn-md btn-info">Create Division</a>
             </div>
             
-            @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-
             <div class="card-datatable table-responsive">
                 <table class="dt-responsive table border-top" id="divisionTable" style="width:100%">
                     <thead>
                         <tr>
-                            <th>No</th>
+                            <th style="width: 5%">No</th>
                             <th>Division Name</th>
-                            <th>Actions</th>
+                            <th style="width: 15%">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
