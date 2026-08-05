@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('title','Role Management')
 @section('content')
-<div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
-        <div class="card">
+        <div class="col-12">
+            <div class="card">
             <h5 class="card-header">Edit Level {{ ucfirst($role->name) }}</h5>
             <form action="{{ route('roles.update',$role->id) }}" method="POST" id="form-menu">
             @csrf
@@ -96,9 +96,9 @@
                 <button type="submit" class="btn btn-md btn-success" id="simpan">Update</button>
             </div>
             </form>
+            </div>
         </div>
     </div>
-</div>
 @endsection
 @push('scripts')
 <script>

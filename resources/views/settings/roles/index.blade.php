@@ -2,17 +2,19 @@
 @section('title','Role Management')
 @section('content')
 <!-- Basic Bootstrap Table -->
-<div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
-        <div class="card">
-            <h5 class="card-header">Role List</h5>
-            @can('role-create')
-            <div class="d-flex justify-content-start mb-3" >
-                <a href="{{ route('roles.create') }}" class="btn btn-md btn-info">Create Role</a>
-            </div>
-            @endcan
-            <div class="card-datatable table-responsive">
-                <table class="dt-responsive table border-top" id="roleTable" style ="width:100%">
+        <div class="col-12">
+            <div class="card">
+                <div class="d-flex justify-content-between align-items-center p-3">
+                    <h5 class="mb-0">Role List</h5>
+                    @can('role-create')
+                    <a href="{{ route('roles.create') }}" class="btn create-new btn-primary">Create Role</a>
+                    @endcan
+                </div>
+                
+                <div class="card-body">
+                    <div class="table-responsive text-nowrap">
+                        <table class="table" id="roleTable" style ="width:100%">
                     <thead>
                         <tr>
                             <th style="width: 5%">No</th>
@@ -29,17 +31,30 @@
                                     <strong>{{ ucfirst($role->name) }}</strong>
                                 </td>
                                 <td>
-                                    @foreach($role->permissions as $permission)
-                                        <span class="badge bg-label-primary me-1 mb-1">
-                                            {{ $permission->name }}
-                                        </span>
-                                    @endforeach
+                                    @php
+                                        $grouped = [];
+                                        foreach($role->permissions as $perm) {
+                                            $parts = explode('-', $perm->name);
+                                            $module = ucfirst(str_replace('_', ' ', $parts[0]));
+                                            $action = ucfirst($parts[1] ?? 'other');
+                                            $grouped[$module][] = $action;
+                                        }
+                                    @endphp
+                                    <ol class="ps-3 mb-0 text-secondary" style="font-size: 0.95rem;">
+                                        @foreach($grouped as $module => $actions)
+                                            <li>{{ $module }},
+                                                @foreach($actions as $action)
+                                                    {{ $action }}:1{{ !$loop->last ? ', ' : '' }}
+                                                @endforeach
+                                            </li>
+                                        @endforeach
+                                    </ol>
                                 </td>
                                 <td>
                                     @can('role-edit')
                                     <a href="{{ route('roles.edit',$role->id) }}"
-                                    class="btn btn-warning btn-sm">
-                                        <i class="bx bx-edit"></i>
+                                    class="btn btn-icon item-edit">
+                                        <i class="icon-base bx bx-edit icon-sm"></i>
                                     </a>
                                     @endcan
                                     @can('role-delete')
@@ -49,8 +64,8 @@
                                         class="form-delete">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="button" class="btn btn-danger btn-sm btn-delete">
-                                            <i class="bx bx-trash"></i>
+                                        <button type="button" class="btn btn-icon btn-delete">
+                                            <i class="icon-base bx bx-trash icon-sm"></i>
                                         </button>
                                     </form>
                                     @endcan
@@ -59,10 +74,11 @@
                         @endforeach
                     </tbody>
                 </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 <!--/ Basic Bootstrap Table -->
 @endsection
 @section('script')

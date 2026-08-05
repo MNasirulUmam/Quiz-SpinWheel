@@ -1,17 +1,16 @@
 @extends('layouts.app')
 @section('title', 'Division Management')
 @section('content')
-<div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
-        <div class="card">
-            <h5 class="card-header">Division List</h5>
-            
-            <div class="d-flex justify-content-start mb-3">
-                <a href="{{ route('divisions.create') }}" class="btn btn-md btn-info">Create Division</a>
+        <div class="col-12">
+            <div class="card">
+                <div class="d-flex justify-content-between align-items-center p-3">
+                <h5 class="mb-0">Division List</h5>
+                <a href="{{ route('divisions.create') }}" class="btn create-new btn-primary">Create Division</a>
             </div>
-            
-            <div class="card-datatable table-responsive">
-                <table class="dt-responsive table border-top" id="divisionTable" style="width:100%">
+            <div class="card-body">
+                <div class="table-responsive text-nowrap">
+                <table class="table" id="divisionTable" style="width:100%">
                     <thead>
                         <tr>
                             <th style="width: 5%">No</th>
@@ -25,14 +24,14 @@
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{ $division->name }}</td>
                                 <td>
-                                    <a href="{{ route('divisions.edit', $division->id) }}" class="btn btn-warning btn-sm">
-                                        <i class="bx bx-edit"></i>
+                                    <a href="{{ route('divisions.edit', $division->id) }}" class="btn btn-icon item-edit">
+                                        <i class="icon-base bx bx-edit icon-sm"></i>
                                     </a>
                                     <form action="{{ route('divisions.destroy', $division->id) }}" method="POST" style="display:inline-block" class="form-delete">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="button" class="btn btn-danger btn-sm btn-delete">
-                                            <i class="bx bx-trash"></i>
+                                        <button type="button" class="btn btn-icon btn-delete">
+                                            <i class="icon-base bx bx-trash icon-sm"></i>
                                         </button>
                                     </form>
                                 </td>
@@ -40,10 +39,11 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
+        </div>
     </div>
-</div>
 @endsection
 
 @section('script')

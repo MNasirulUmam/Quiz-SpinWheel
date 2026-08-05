@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Edit Division')
 @section('content')
-<div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
@@ -27,5 +26,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection
