@@ -48,8 +48,8 @@
                         <input type="text" class="form-control" id="keterangan" name="keterangan" value="{{ old('keterangan') }}"/>
                     </div>
                     <div class="mb-3">
-                        <a href="{{ route('users.index') }}" class="btn btn-md btn-secondary">Back</a>
-                        <button type="submit" class="btn btn-md btn-success" id="simpan">Save</button>
+                        <a href="{{ route('users.index') }}" class="btn btn-outline-secondary">Back</a>
+                        <button type="submit" class="btn btn-primary me-2" id="simpan">Save</button>
                     </div>
                 </form>
                 </div>

@@ -1,41 +1,53 @@
 @extends('layouts.app')
-@section('title', 'Division Management')
+@section('title', 'Sessions Management')
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="d-flex justify-content-between align-items-center p-3">
-                <h5 class="mb-0">Division List</h5>
-                <a href="{{ route('divisions.create') }}" class="btn create-new btn-primary">Create Division</a>
+                <h5 class="mb-0">Active Sessions</h5>
             </div>
             <div class="card-body">
                 <div class="table-responsive text-nowrap">
-                <table class="table" id="divisionTable" style="width:100%">
+                <table class="table" id="sessionsTable" style="width:100%">
                     <thead>
                         <tr>
                             <th style="width: 5%">No</th>
-                            <th>Code</th>
-                            <th>Division Name</th>
-                            <th style="width: 15%">Actions</th>
+                            <th>User</th>
+                            <th>IP Address</th>
+                            <th>User Agent</th>
+                            <th>Last Activity</th>
+                            <th style="width: 10%">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($divisions as $key => $division)
+                        @foreach($sessions as $key => $session)
                             <tr>
                                 <td>{{ $key + 1 }}</td>
-                                <td>{{ $division->code }}</td>
-                                <td>{{ $division->name }}</td>
                                 <td>
-                                    <a href="{{ route('divisions.edit', $division->id) }}" class="btn btn-icon item-edit">
-                                        <i class="icon-base bx bx-edit icon-sm"></i>
-                                    </a>
-                                    <form action="{{ route('divisions.destroy', $division->id) }}" method="POST" style="display:inline-block" class="form-delete">
+                                    @if($session->user_name)
+                                        <span class="badge bg-primary">{{ $session->user_name }}</span>
+                                    @else
+                                        <span class="badge bg-secondary">Guest</span>
+                                    @endif
+                                </td>
+                                <td>{{ $session->ip_address }}</td>
+                                <td>
+                                    <span class="d-inline-block text-truncate" style="max-width: 250px;" title="{{ $session->user_agent }}">
+                                        {{ $session->user_agent }}
+                                    </span>
+                                </td>
+                                <td>{{ \Carbon\Carbon::createFromTimestamp($session->last_activity)->format('d-m-Y H:i:s') }}</td>
+                                <td>
+                                    @can('session-delete')
+                                    <form action="{{ route('sessions.destroy', $session->id) }}" method="POST" style="display:inline-block" class="form-delete">
                                         @csrf
                                         @method('DELETE')
                                         <button type="button" class="btn btn-icon btn-delete">
                                             <i class="icon-base bx bx-trash icon-sm"></i>
                                         </button>
                                     </form>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
@@ -56,7 +68,7 @@ $(document).ready(function(){
         let form = $(this).closest('form');
         Swal.fire({
             title: 'Are you sure?',
-            text: "This division will be deleted permanently!",
+            text: "This session will be deleted and the user will be logged out!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -71,7 +83,7 @@ $(document).ready(function(){
     });
 
     try {
-        $('#divisionTable').DataTable({
+        $('#sessionsTable').DataTable({
             responsive: true,
             language: {
                 search: "Search:",

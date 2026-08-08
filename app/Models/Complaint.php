@@ -7,13 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Complaint extends Model
 {
     protected $fillable = [
+        'complaint_code',
         'name',
         'number_phone',
         'address',
+        'attachment',
+        'description',
         'complaint_type_id',
         'division_id',
         'date',
         'status',
+        'notes',
     ];
 
     public function complaintType()

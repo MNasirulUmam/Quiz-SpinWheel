@@ -66,8 +66,8 @@
                 </table>
             </div>
             <div class="card-body">
-                <a href="{{ route('roles.index') }}" class="btn btn-md btn-secondary">Back</a>
-                <button type="submit" class="btn btn-md btn-success">Save</button>
+                <a href="{{ route('roles.index') }}" class="btn btn-outline-secondary">Back</a>
+                <button type="submit" class="btn btn-primary me-2">Save</button>
             </div>
             </form>
             </div>

@@ -27,7 +27,8 @@ class ComplaintTypeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|alpha|max:3|unique:complaint_types,code'
         ]);
 
         \App\Models\ComplaintType::create($request->all());
@@ -48,7 +49,8 @@ class ComplaintTypeController extends Controller
     public function update(Request $request, \App\Models\ComplaintType $complaintType)
     {
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|alpha|max:3|unique:complaint_types,code,' . $complaintType->id
         ]);
 
         $complaintType->update($request->all());

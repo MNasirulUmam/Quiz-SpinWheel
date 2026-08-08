@@ -33,31 +33,6 @@
         <div data-i18n="Basic">Dashboard</div>
       </a>
     </li>
-    <!-- Extended Pengaturan -->
-    @canany(['users-list', 'role-list'])
-    <li class="menu-item {{ request()->routeIs('users.*') || request()->routeIs('roles.*') ? 'active open' : '' }}">
-      <a href="javascript:void(0)" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-cog"></i>
-        <div data-i18n="Extended UI">Settings</div>
-      </a>
-      <ul class="menu-sub">
-        @can('users-list')
-        <li class="menu-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
-          <a href="{{ route('users.index') }}" class="menu-link">
-            <div data-i18n="Perfect Scrollbar">User Management</div>
-          </a>
-        </li>
-        @endcan
-        @can('role-list')
-        <li class="menu-item {{ request()->routeIs('roles.*') ? 'active open' : '' }}">
-          <a href="{{ route('roles.index') }}" class="menu-link">
-            <div data-i18n="Text Divider">Role Management</div>
-          </a>
-        </li>
-        @endcan
-      </ul>
-    </li>
-    @endcanany
     <!-- Master Data -->
     @canany(['division-list', 'complaint_type-list'])
     <li class="menu-item {{ request()->routeIs('divisions.*') || request()->routeIs('complaint_types.*') ? 'active open' : '' }}">
@@ -83,12 +58,46 @@
       </ul>
     </li>
     @endcanany
-    <!-- User interface -->
-    <li class="menu-item">
-      <a href="javascript:void(0)" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-box"></i>
-        <div data-i18n="User interface">User interface</div>
+    <!-- Complaint -->
+    @canany(['complaint-list'])
+    <li class="menu-item {{ request()->routeIs('complaints.*') ? 'active' : '' }}">
+      <a href="{{ route('complaints.index') }}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-chat"></i>
+        <div data-i18n="Complaint">Complaint</div>
       </a>
     </li>
+    @endcanany
+    <!-- Settings -->
+    @canany(['users-list', 'role-list', 'session-list'])
+    <li class="menu-item {{ request()->routeIs('users.*') || request()->routeIs('roles.*') || request()->routeIs('sessions.*') ? 'active open' : '' }}">
+      <a href="javascript:void(0)" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-cog"></i>
+        <div data-i18n="Settings">Settings</div>
+      </a>
+      <ul class="menu-sub">
+        @can('users-list')
+        <li class="menu-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
+          <a href="{{ route('users.index') }}" class="menu-link">
+            <div data-i18n="User Management">User Management</div>
+          </a>
+        </li>
+        @endcan
+        @can('role-list')
+        <li class="menu-item {{ request()->routeIs('roles.*') ? 'active open' : '' }}">
+          <a href="{{ route('roles.index') }}" class="menu-link">
+            <div data-i18n="Role Management">Role Management</div>
+          </a>
+        </li>
+        @endcan
+        @can('session-list')
+        <li class="menu-item {{ request()->routeIs('sessions.*') ? 'active open' : '' }}">
+          <a href="{{ route('sessions.index') }}" class="menu-link">
+            <div data-i18n="Sessions Management">Sessions Management</div>
+          </a>
+        </li>
+        @endcan
+      </ul>
+    </li>
+    @endcanany
   </ul>
 </aside>

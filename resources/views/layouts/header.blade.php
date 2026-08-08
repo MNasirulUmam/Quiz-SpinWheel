@@ -57,13 +57,7 @@
             <div class="dropdown-divider"></div>
           </li>
           <li>
-            <a class="dropdown-item" href="#">
-              <i class="bx bx-user me-2"></i>
-              <span class="align-middle">My Profile</span>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#settingsModal">
               <i class="bx bx-cog me-2"></i>
               <span class="align-middle">Settings</span>
             </a>
@@ -90,5 +84,63 @@
     </ul>
   </div>
 </nav>
+
+<!-- Settings Modal -->
+<div class="modal fade" id="settingsModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="settingsModalLabel">Edit User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ route('profile.update') }}" method="POST">
+        @csrf
+        @method('PATCH')
+        <div class="modal-body">
+          <div class="row">
+            <div class="col mb-3">
+              <label for="profile_username" class="form-label" style="text-transform: uppercase;">Username</label>
+              <input type="text" id="profile_username" name="username" class="form-control" value="{{ auth()->user()->username }}" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mb-3">
+              <label for="profile_name" class="form-label" style="text-transform: uppercase;">Fullname</label>
+              <input type="text" id="profile_name" name="name" class="form-control" value="{{ auth()->user()->name }}" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mb-3">
+              <label for="profile_level" class="form-label" style="text-transform: uppercase;">Level</label>
+              <input type="text" id="profile_level" class="form-control" value="{{ auth()->user()->roles->first()->name ?? 'User' }}" disabled>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mb-3">
+              <label for="profile_password" class="form-label" style="text-transform: uppercase;">Password (Leave empty if you don't want to change it)</label>
+              <input type="password" id="profile_password" name="password" class="form-control">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mb-3">
+              <label for="profile_confirm-password" class="form-label" style="text-transform: uppercase;">Confirm Password</label>
+              <input type="password" id="profile_confirm-password" name="confirm-password" class="form-control">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mb-3">
+              <label for="profile_keterangan" class="form-label" style="text-transform: uppercase;">Description</label>
+              <input type="text" id="profile_keterangan" name="keterangan" class="form-control" value="{{ auth()->user()->keterangan }}">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Back</button>
+          <button type="submit" class="btn btn-primary" style="background-color: #ff9800; border-color: #ff9800;">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 

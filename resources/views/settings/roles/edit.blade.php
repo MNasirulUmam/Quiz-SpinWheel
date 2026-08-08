@@ -92,8 +92,8 @@
                 </table>
             </div>
             <div class="card-body">
-                <a href="{{ route('roles.index') }}" class="btn btn-md btn-secondary">Back</a>
-                <button type="submit" class="btn btn-md btn-success" id="simpan">Update</button>
+                <a href="{{ route('roles.index') }}" class="btn btn-outline-secondary">Back</a>
+                <button type="submit" class="btn btn-primary me-2" id="simpan">Update</button>
             </div>
             </form>
             </div>

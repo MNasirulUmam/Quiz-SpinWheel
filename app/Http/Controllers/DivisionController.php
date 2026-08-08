@@ -27,7 +27,8 @@ class DivisionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255',
+            'code' => 'required|numeric|digits_between:1,3|unique:divisions,code'
         ]);
 
         \App\Models\Division::create($request->all());
@@ -48,7 +49,8 @@ class DivisionController extends Controller
     public function update(Request $request, \App\Models\Division $division)
     {
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255',
+            'code' => 'required|numeric|digits_between:1,3|unique:divisions,code,' . $division->id
         ]);
 
         $division->update($request->all());

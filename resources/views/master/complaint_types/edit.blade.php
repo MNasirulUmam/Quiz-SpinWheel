@@ -17,6 +17,14 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+
+                        <div class="mb-3">
+                            <label for="code" class="form-label">Complaint Type Code</label>
+                            <input type="text" class="form-control @error('code') is-invalid @enderror" id="code" name="code" value="{{ old('code', $complaintType->code) }}" placeholder="Enter complaint type code" pattern="[A-Za-z]{1,3}" maxlength="3" title="Only letters are allowed, up to 3 characters" required>
+                            @error('code')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
                         
                         <div class="mt-4">
                             <button type="submit" class="btn btn-primary me-2">Update</button>

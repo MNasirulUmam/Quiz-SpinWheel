@@ -33,10 +33,12 @@ class PermissionSeeder extends Seeder
             'complaint_type-edit',
             'complaint_type-delete',
             'complaint-list',
+            'complaint-show',
             'complaint-create',
             'complaint-edit',
             'complaint-delete',
-            
+            'session-list',
+            'session-delete',
          ];
       
          foreach ($permissions as $permission) {

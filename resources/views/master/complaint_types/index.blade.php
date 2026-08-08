@@ -15,6 +15,7 @@
                     <thead>
                         <tr>
                             <th style="width: 5%">No</th>
+                            <th>Code</th>
                             <th>Complaint Type Name</th>
                             <th style="width: 15%">Actions</th>
                         </tr>
@@ -23,6 +24,7 @@
                         @foreach($complaint_types as $key => $type)
                             <tr>
                                 <td>{{ $key + 1 }}</td>
+                                <td>{{ $type->code }}</td>
                                 <td>{{ $type->name }}</td>
                                 <td>
                                     <a href="{{ route('complaint_types.edit', $type->id) }}" class="btn btn-icon item-edit">
