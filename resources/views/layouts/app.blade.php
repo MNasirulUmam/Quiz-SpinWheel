@@ -2,7 +2,7 @@
 
 <html
   lang="en"
-  class="light-style layout-menu-fixed layout-compact"
+  class="light-style layout-menu-fixed layout-navbar-fixed layout-compact"
   dir="ltr"
   data-theme="theme-default"
   data-assets-path="{{ asset('assets/') }}"

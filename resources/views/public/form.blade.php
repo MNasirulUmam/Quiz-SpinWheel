@@ -6,8 +6,8 @@
     <div class="col-md-8 col-lg-6">
         <div class="card mb-4 mt-3 shadow-sm border-0">
             <div class="card-header pt-4 pb-3 text-center border-bottom" style="background-color: #ff8505;">
-                <h4 class="mb-1 text-white">Formulir Pengaduan Komplain</h4>
-                <p class="mb-0" style="color: #023401; font-weight: 500;">Silakan isi rincian masalah Anda dengan benar</p>
+                <h4 class="mb-1 text-white fw-bold">Formulir Pengaduan Komplain</h4>
+                <p class="mb-0" style="color: #023401; font-weight: 500;">Tulis rincian masalah Anda dengan benar !</p>
             </div>
             <div class="card-body mt-3">
 
@@ -105,8 +105,13 @@
 
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-primary btn-lg" style="background-color: #ff8505; border-color: #ff8505;">
-                            <i class="bx bxs-send me-3"></i> Kirim Pengaduan 
+                            <i class="icon-base bx bx-paper-plane icon-sm ms-md-4 ms-0"></i> Kirim Pengaduan 
                         </button>
+                    </div>
+
+                    <hr class="mt-4 mb-3">
+                    <div class="text-center">
+                        <small class="text-muted">Terima kasih atas masukan Anda. Saran ini sangat berharga bagi kami untuk terus melakukan perbaikan</small>
                     </div>
                 </form>
             </div>

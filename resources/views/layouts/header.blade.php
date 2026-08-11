@@ -28,6 +28,70 @@
           </a>
       </li>
 
+      <!-- Notification -->
+      @auth
+      <li class="nav-item navbar-dropdown dropdown me-3 me-xl-1">
+        <a class="nav-link dropdown-toggle hide-arrow position-relative" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+          <i class="bx bx-bell bx-sm"></i>
+          @php
+             $unreadComplaints = \App\Models\Complaint::where('status', 'pending')->latest()->take(5)->get();
+             $unreadCount = \App\Models\Complaint::where('status', 'pending')->count();
+          @endphp
+          @if($unreadCount > 0)
+            <span class="position-absolute top-10 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.65rem;">
+              {{ $unreadCount }}
+            </span>
+          @endif
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end py-0" style="width: 350px;">
+          <li class="dropdown-menu-header border-bottom">
+            <div class="dropdown-header d-flex align-items-center py-3">
+              <h5 class="text-body mb-0 me-auto">Notification</h5>
+              @if($unreadCount > 0)
+                <span class="badge bg-label-primary rounded-pill me-2">{{ $unreadCount }} New</span>
+              @endif
+              <a href="javascript:void(0)" class="dropdown-notifications-all text-body"><i class="bx bx-envelope-open fs-4"></i></a>
+            </div>
+          </li>
+          <li class="dropdown-notifications-list scrollable-container" style="max-height: 300px; overflow-y: auto;">
+            <ul class="list-group list-group-flush">
+              @forelse($unreadComplaints as $complaint)
+              <li class="list-group-item list-group-item-action dropdown-notifications-item p-3">
+                <a href="{{ route('complaints.show', $complaint->id) }}" class="text-decoration-none text-dark">
+                <div class="d-flex">
+                  <div class="flex-shrink-0 me-3">
+                    <div class="avatar">
+                      <span class="avatar-initial rounded-circle bg-label-danger" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;"><i class="bx bx-error fs-4"></i></span>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1 text-dark" style="font-weight: 500;">{{ $complaint->division->name ?? 'Komplain' }}</h6>
+                    <p class="mb-1 text-muted" style="font-size: 0.85rem;">{{ \Illuminate\Support\Str::limit($complaint->description, 60) }}</p>
+                    <small class="text-muted" style="font-size: 0.8rem;">{{ $complaint->created_at->diffForHumans() }}</small>
+                  </div>
+                  <div class="flex-shrink-0 dropdown-notifications-actions d-flex align-items-start mt-1">
+                    <span class="badge badge-dot bg-primary rounded-circle" style="width: 8px; height: 8px; padding: 0;"></span>
+                  </div>
+                </div>
+                </a>
+              </li>
+              @empty
+              <li class="list-group-item">
+                <div class="text-center p-3 text-muted">Belum ada komplain baru</div>
+              </li>
+              @endforelse
+            </ul>
+          </li>
+          <li class="dropdown-menu-footer border-top p-3">
+            <a href="{{ route('complaints.index') }}" class="btn btn-primary w-100 d-flex justify-content-center" style="font-weight: 500;">
+              View all notifications
+            </a>
+          </li>
+        </ul>
+      </li>
+      @endauth
+      <!--/ Notification -->
+
       <!-- User -->
       <li class="nav-item navbar-dropdown dropdown-user dropdown">
         <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
