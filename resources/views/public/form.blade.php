@@ -46,7 +46,7 @@
                             <label class="form-label text-uppercase">Tanggal Pelayanan <span class="text-danger">*</span></label>
                             <div class="input-group input-group-merge">
                                 <span class="input-group-text"><i class="bx bx-calendar"></i></span>
-                                <input type="date" class="form-control" name="date" value="{{ old('date', date('Y-m-d')) }}" required/>
+                                <input type="date" class="form-control" name="date" value="{{ date('Y-m-d') }}" readonly required/>
                             </div>
                         </div>
                     </div>
@@ -55,7 +55,11 @@
                         <label class="form-label text-uppercase">Alamat <span class="text-danger">*</span></label>
                         <div class="input-group input-group-merge">
                             <span class="input-group-text align-items-start pt-2"><i class="bx bx-map"></i></span>
-                            <textarea class="form-control" name="address" rows="2" placeholder="Isi Alamat lengkap" required>{{ old('address') }}</textarea>
+                            <textarea class="form-control" name="address" id="addressField" rows="4" placeholder="Isi Alamat lengkap" maxlength="100" required>{{ old('address') }}</textarea>
+                        </div>
+                        <div class="d-flex justify-content-between mt-1">
+                            <small class="text-muted">Maksimal 100 karakter</small>
+                            <small class="text-muted" id="addressCounter">0/100</small>
                         </div>
                     </div>
 
@@ -90,7 +94,11 @@
                         <label class="form-label text-uppercase">Deskripsi Komplain <span class="text-danger">*</span></label>
                         <div class="input-group input-group-merge">
                             <span class="input-group-text align-items-start pt-2"><i class="bx bx-comment-detail"></i></span>
-                            <textarea class="form-control" name="description" rows="4" placeholder="Jelaskan keluhan Anda" required>{{ old('description') }}</textarea>
+                            <textarea class="form-control" name="description" id="descField" rows="6" placeholder="Jelaskan keluhan Anda" maxlength="200" required>{{ old('description') }}</textarea>
+                        </div>
+                        <div class="d-flex justify-content-between mt-1">
+                            <small class="text-muted">Maksimal 200 karakter</small>
+                            <small class="text-muted" id="descCounter">0/200</small>
                         </div>
                     </div>
 
@@ -232,6 +240,27 @@
                 event.preventDefault();
             }
         });
+
+        // Setup char counters for address and description
+        const addressField = document.getElementById('addressField');
+        const addressCounter = document.getElementById('addressCounter');
+        if(addressField && addressCounter) {
+            addressField.addEventListener('input', function() {
+                addressCounter.textContent = this.value.length + '/100';
+            });
+            // Initialize on load (in case of old input)
+            addressCounter.textContent = addressField.value.length + '/100';
+        }
+
+        const descField = document.getElementById('descField');
+        const descCounter = document.getElementById('descCounter');
+        if(descField && descCounter) {
+            descField.addEventListener('input', function() {
+                descCounter.textContent = this.value.length + '/200';
+            });
+            // Initialize on load (in case of old input)
+            descCounter.textContent = descField.value.length + '/200';
+        }
 
         // Trigger success modal if exists
         @if (session('success'))

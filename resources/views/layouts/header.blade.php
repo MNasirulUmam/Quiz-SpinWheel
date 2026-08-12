@@ -8,9 +8,14 @@
   <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
     <!-- Search -->
     <div class="navbar-nav align-items-center">
-      <h3 class="mb-0 fw-bold">
-        @yield('title')
-      </h3>
+      <div class="nav-item d-flex align-items-center">
+        <i class="bx bx-search fs-4 lh-0"></i>
+        <input
+          type="text"
+          class="form-control border-0 shadow-none ps-1 ps-sm-2"
+          placeholder="Search [CTRL + K]"
+          aria-label="Search [CTRL + K]" />
+      </div>
     </div>
     <!-- /Search -->
 
@@ -27,6 +32,30 @@
           >
           </a>
       </li>
+
+      <!-- Language -->
+      <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
+        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+          <i class="bx bx-globe bx-sm"></i>
+        </a>
+      </li>
+      <!--/ Language -->
+
+      <!-- Style Switcher -->
+      <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
+        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+          <i class="bx bx-sun bx-sm"></i>
+        </a>
+      </li>
+      <!--/ Style Switcher -->
+
+      <!-- Quick links  -->
+      <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
+        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+          <i class="bx bx-grid-alt bx-sm"></i>
+        </a>
+      </li>
+      <!-- Quick links -->
 
       <!-- Notification -->
       @auth

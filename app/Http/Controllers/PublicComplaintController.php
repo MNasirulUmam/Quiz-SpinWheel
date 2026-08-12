@@ -19,8 +19,8 @@ class PublicComplaintController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'number_phone' => 'required|numeric',
-            'address' => 'required|string',
-            'description' => 'required|string',
+            'address' => 'required|string|max:100',
+            'description' => 'required|string|max:200',
             'attachment' => 'required|file|mimes:jpeg,png,jpg,pdf,doc,docx|max:5120',
             'complaint_type_id' => 'required|exists:complaint_types,id',
             'division_id' => 'required|exists:divisions,id',
@@ -29,6 +29,8 @@ class PublicComplaintController extends Controller
 
         $data = $request->except('attachment');
         $data['status'] = 'pending';
+        // Force the date to today's date for data integrity
+        $data['date'] = date('Y-m-d');
 
         if ($request->hasFile('attachment')) {
             $path = $request->file('attachment')->store('complaints', 'public');

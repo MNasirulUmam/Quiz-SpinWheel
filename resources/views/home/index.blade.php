@@ -1,15 +1,11 @@
 @extends('layouts.app')
 @section('title','Dashboard')
 @section('content') 
-<div class="row">    
-    <!-- Hour chart  -->
-    <div class="card bg-transparent shadow-none border-0 my-4">
-        <div class="card-body row p-0 pb-3">
-            <div class="col-12 col-md-12 card-separator">
-                <h4 class="fw-bold">Selamat Datang, {{ ucfirst($user->name) }} {{ $tanggal }}👋🏻 </h5>
-                
-                <div class="row g-4 mt-2">
-                    <!-- Courses-->
+<h4 class="fw-bold py-3 mb-2">Selamat Datang, {{ ucfirst($user->name) }} {{ $tanggal }}👋🏻</h4>
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="row g-4">
+            <!-- Courses-->
                     <div class="col-12 col-lg-8">
                         <div class="card h-100">
                             <div class="card-header d-flex align-items-center justify-content-between">
@@ -75,8 +71,6 @@
                     </div>
                 </div>
                 <!--/ Reasons for delivery exceptions -->
-                </div>
-            </div>
         </div>
     </div>
     <!-- Hour chart End  -->
@@ -130,8 +124,6 @@
             </div>
         </div>
     </div>
-    <!-- /Bar Charts -->
-
 </div>
 @endsection
 
