@@ -21,7 +21,7 @@ class PublicComplaintController extends Controller
             'number_phone' => 'required|numeric',
             'address' => 'required|string|max:100',
             'description' => 'required|string|max:200',
-            'attachment' => 'required|file|mimes:jpeg,png,jpg,pdf,doc,docx|max:5120',
+            'attachment' => 'nullable|file|mimes:jpeg,png,jpg,pdf,doc,docx|max:5120',
             'complaint_type_id' => 'required|exists:complaint_types,id',
             'division_id' => 'required|exists:divisions,id',
             'date' => 'required|date',

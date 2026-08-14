@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Complaint;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ComplaintController extends Controller
 {
@@ -110,6 +111,10 @@ class ComplaintController extends Controller
         $data = $request->except('attachment');
 
         if ($request->hasFile('attachment')) {
+            // Delete old attachment if exists
+            if ($complaint->attachment && Storage::disk('public')->exists($complaint->attachment)) {
+                Storage::disk('public')->delete($complaint->attachment);
+            }
             $path = $request->file('attachment')->store('complaints', 'public');
             $data['attachment'] = $path;
         }
