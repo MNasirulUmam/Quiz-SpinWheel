@@ -31,44 +31,6 @@
 </head>
 <body style="background-color: #f5f5f9;">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-white mb-4 shadow-sm">
-        <div class="container">
-            <a class="navbar-brand fw-bold d-flex align-items-center" style="color: #ff8505" href="{{ url('/') }}">
-                <img src="{{ asset('assets/img/logo/logo.png') }}" alt="BHC Logo" style="max-height: 35px; margin-right: 10px;">
-            </a>
-            <div class="d-flex">
-                <button type="button" class="btn btn-outline-primary" style="color: #ff8505; border-color: #ff8505;" data-bs-toggle="modal" data-bs-target="#checkStatusModal">
-                    <i class="bx bx-search-alt-2 me-1"></i> Cek Status
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Modal Cek Status -->
-    <div class="modal fade" id="checkStatusModal" tabindex="-1" aria-labelledby="checkStatusModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <form action="{{ route('public.checkStatus') }}" method="POST">
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="checkStatusModalLabel" style="color: #ff8505;">Cek Status Komplain</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="complaint_code" class="form-label">Kode Tiket (Ticket Code) <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="complaint_code" name="complaint_code" placeholder="Misal: TIKET-123" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary" style="background-color: #ff8505; border-color: #ff8505;">Cek Sekarang</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <div class="container">
         @yield('content')
     </div>

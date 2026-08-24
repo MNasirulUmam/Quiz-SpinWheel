@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('complaints', function (Blueprint $table) {
-            $table->text('notes')->nullable()->after('status');
+        Schema::table('questions', function (Blueprint $table) {
+            $table->string('image_path')->nullable()->after('answer_text');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('complaints', function (Blueprint $table) {
-            $table->dropColumn('notes');
+        Schema::table('questions', function (Blueprint $table) {
+            $table->dropColumn('image_path');
         });
     }
 };

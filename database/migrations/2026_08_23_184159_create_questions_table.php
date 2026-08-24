@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('complaints', function (Blueprint $table) {
-            $table->string('attachment')->nullable()->after('address');
-            $table->text('description')->nullable()->after('attachment');
+        Schema::create('questions', function (Blueprint $table) {
+            $table->id();
+            $table->string('category')->nullable();
+            $table->text('question_text');
+            $table->text('answer_text');
+            $table->boolean('is_used')->default(false);
+            $table->timestamps();
         });
     }
 
@@ -22,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('complaints', function (Blueprint $table) {
-            $table->dropColumn(['attachment', 'description']);
-        });
+        Schema::dropIfExists('questions');
     }
 };

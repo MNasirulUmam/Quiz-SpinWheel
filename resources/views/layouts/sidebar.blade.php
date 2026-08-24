@@ -34,39 +34,50 @@
       </a>
     </li>
     <!-- Master Data -->
-    @canany(['division-list', 'complaint_type-list'])
-    <li class="menu-item {{ request()->routeIs('divisions.*') || request()->routeIs('complaint_types.*') ? 'active open' : '' }}">
+    @canany(['question-list'])
+    <li class="menu-item {{ request()->routeIs('questions.*') ? 'active open' : '' }}">
       <a href="javascript:void(0)" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-cylinder"></i>
-        <div data-i18n="Extended UI">Master Data</div>
+        <div data-i18n="Master Data">Master Data</div>
       </a>
       <ul class="menu-sub">
-        @can('division-list')
-        <li class="menu-item {{ request()->routeIs('divisions.*') ? 'active' : '' }}">
-          <a href="{{ route('divisions.index') }}" class="menu-link">
-            <div data-i18n="Perfect Scrollbar">Division</div>
-          </a>
-        </li>
-        @endcan
-        @can('complaint_type-list')
-        <li class="menu-item {{ request()->routeIs('complaint_types.*') ? 'active' : '' }}">
-          <a href="{{ route('complaint_types.index') }}" class="menu-link">
-            <div data-i18n="Text Divider">Complaint Type</div>
+        @can('question-list')
+        <li class="menu-item {{ request()->routeIs('questions.*') ? 'active' : '' }}">
+          <a href="{{ route('questions.index') }}" class="menu-link">
+            <div data-i18n="Questions">Questions (Soal)</div>
           </a>
         </li>
         @endcan
       </ul>
     </li>
     @endcanany
-    <!-- Complaint -->
-    @canany(['complaint-list'])
-    <li class="menu-item {{ request()->routeIs('complaints.*') ? 'active' : '' }}">
-      <a href="{{ route('complaints.index') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-chat"></i>
-        <div data-i18n="Complaint">Complaint</div>
+
+    <!-- History -->
+    @canany(['players-list', 'game_session-list'])
+    <li class="menu-item {{ request()->routeIs('players.*') || request()->routeIs('game_sessions.*') ? 'active open' : '' }}">
+      <a href="javascript:void(0)" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-history"></i>
+        <div data-i18n="History">History</div>
       </a>
+      <ul class="menu-sub">
+        @can('players-list')
+        <li class="menu-item {{ request()->routeIs('players.*') ? 'active' : '' }}">
+          <a href="{{ route('players.index') }}" class="menu-link">
+            <div data-i18n="Players">Players</div>
+          </a>
+        </li>
+        @endcan
+        @can('game_session-list')
+        <li class="menu-item {{ request()->routeIs('game_sessions.*') ? 'active' : '' }}">
+          <a href="{{ route('game_sessions.index') }}" class="menu-link">
+            <div data-i18n="Game Sessions">Game Sessions</div>
+          </a>
+        </li>
+        @endcan
+      </ul>
     </li>
     @endcanany
+
     <!-- Settings -->
     @canany(['users-list', 'role-list', 'session-list'])
     <li class="menu-item {{ request()->routeIs('users.*') || request()->routeIs('roles.*') || request()->routeIs('sessions.*') ? 'active open' : '' }}">

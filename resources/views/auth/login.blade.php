@@ -61,7 +61,7 @@
               <div class="app-brand justify-content-center">
                 <a href="" class="app-brand-link gap-2">
                   <span class="app-brand-logo demo">
-                    <img src="{{ asset('assets/img/logo/logo.png') }}" alt="BHC Logo" style="max-height: 55px;">
+                    <img src="{{ asset('assets/img/logo/logo.png') }}" alt="BHC Logo" style="max-height: 150px;">
                   </span>
                 </a>
               </div>
