@@ -194,8 +194,8 @@
         </div>
     </div>
     <!-- Audio Elements -->
-    <audio id="spinSound" src="{{ asset('assets/voice/mixkit-repeating-arcade-beep-1084.wav') }}"></audio>
-    <audio id="successSound" src="{{ asset('assets/voice/mixkit-success-software-tone-2865.wav') }}"></audio>
+    <audio id="spinSound" src="{{ asset('assets/voice/mixkit-repeating-arcade-beep-1084.wav') }}" preload="auto"></audio>
+    <audio id="successSound" src="{{ asset('assets/voice/mixkit-success-software-tone-2865.wav') }}" preload="auto"></audio>
 </div>
 
 <script>
