@@ -20,11 +20,13 @@ class QuizController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
             'institution' => 'nullable|string|max:255',
+        ], [
+            'name.regex' => 'Nama hanya boleh berisi huruf dan spasi.',
         ]);
 
-        $player = Player::create([
+        $player = Player::firstOrCreate([
             'name' => $request->name,
             'institution' => $request->institution,
         ]);
@@ -43,6 +45,9 @@ class QuizController extends Controller
             return redirect()->route('quiz.index')->with('error', 'Silakan isi data diri terlebih dahulu.');
         }
 
+        // Ambil player_id dan langsung hapus dari session (agar F5 lari ke halaman registrasi)
+        $playerId = Session::pull('player_id');
+
         // Ambil 1 soal acak yang belum dipakai
         $question = Question::where('is_used', false)->inRandomOrder()->first();
 
@@ -51,33 +56,23 @@ class QuizController extends Controller
             return redirect()->route('quiz.index')->with('error', 'Maaf, semua soal sudah habis terjawab.');
         }
 
+        // Tandai soal sudah dipakai dan simpan langsung ke riwayat
+        $question->update(['is_used' => true]);
+
+        GameSession::create([
+            'player_id' => $playerId,
+            'question_id' => $question->id,
+            'played_at' => now(),
+        ]);
+
         return view('quiz.play', compact('question'));
     }
 
     // 4. Selesaikan Permainan & Simpan GameSession
     public function finish(Request $request)
     {
-        $playerId = Session::get('player_id');
-        $questionId = $request->input('question_id');
-
-        if ($playerId && $questionId) {
-            // Tandai soal sudah dipakai
-            $question = Question::find($questionId);
-            if ($question) {
-                $question->update(['is_used' => true]);
-
-                // Simpan riwayat permainan
-                GameSession::create([
-                    'player_id' => $playerId,
-                    'question_id' => $questionId,
-                    'played_at' => now(),
-                ]);
-            }
-        }
-
-        // Hapus session agar tidak bisa main lagi tanpa daftar
-        Session::forget('player_id');
-
+        // Karena data GameSession sudah disimpan di awal halaman play,
+        // tombol "Selesai & Simpan" hanya bertugas memulangkan user ke halaman awal.
         return redirect()->route('quiz.index')->with('success', 'Permainan selesai! Terima kasih sudah berpartisipasi.');
     }
 }

@@ -5,7 +5,17 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Master Data /</span> Questions</h4>
 
+    @php
+        $totalQuestions = count($questions);
+        $unusedQuestions = $questions->where('is_used', 0)->count();
+    @endphp
 
+    @if($totalQuestions > 0 && $unusedQuestions == 0)
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <i class="bx bx-error-circle me-1"></i> Semua soal sudah habis digunakan. Silahkan tambah data soal atau edit soal agar bisa digunakan lagi.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
 
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
