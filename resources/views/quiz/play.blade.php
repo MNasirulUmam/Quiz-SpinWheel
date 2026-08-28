@@ -26,16 +26,20 @@
         border-radius: 50%;
         border: 12px solid #fff;
         box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        /* 6 segments using conic-gradient */
+        /* 10 segments using conic-gradient */
         background: conic-gradient(
-            #ff5252 0deg 60deg,
-            #ffb142 60deg 120deg,
-            #33d9b2 120deg 180deg,
-            #34ace0 180deg 240deg,
-            #706fd3 240deg 300deg,
-            #ff793f 300deg 360deg
+            #ff5252 0deg 36deg,
+            #ffb142 36deg 72deg,
+            #f7d794 72deg 108deg,
+            #33d9b2 108deg 144deg,
+            #34ace0 144deg 180deg,
+            #706fd3 180deg 216deg,
+            #ff793f 216deg 252deg,
+            #218c74 252deg 288deg,
+            #227093 288deg 324deg,
+            #b33939 324deg 360deg
         );
-        transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+        transition: transform 10s cubic-bezier(0.15, 0.9, 0.15, 1);
     }
 
     .pointer {
@@ -194,7 +198,7 @@
         </div>
     </div>
     <!-- Audio Elements -->
-    <audio id="spinSound" src="{{ asset('assets/voice/mixkit-repeating-arcade-beep-1084.wav') }}" preload="auto"></audio>
+    <audio id="spinSound" src="{{ asset('assets/voice/mixkit-repeating-arcade-beep-1084.wav') }}" preload="auto" loop></audio>
     <audio id="successSound" src="{{ asset('assets/voice/mixkit-success-software-tone-2865.wav') }}" preload="auto"></audio>
 </div>
 
@@ -233,7 +237,7 @@
             spinBtn.disabled = true;
             spinBtn.innerHTML = "Memutar...";
 
-            // Wait for animation to finish (3s)
+            // Wait for animation to finish (10s)
             setTimeout(() => {
                 // Stop spin sound
                 spinSound.pause();
@@ -247,12 +251,16 @@
                     wheelSection.style.display = 'none';
                     flashcardSection.style.display = 'block';
                     
-                    // Start 30 seconds countdown
-                    timerDisplay.style.display = 'block';
+                    // Start 30 seconds countdown, show timer only at 10s left
+                    timerDisplay.style.display = 'none';
                     countdownInterval = setInterval(() => {
                         timeLeft--;
                         timeRemainingSpan.textContent = timeLeft;
                         
+                        if (timeLeft <= 15) {
+                            timerDisplay.style.display = 'block';
+                        }
+
                         if (timeLeft <= 0) {
                             clearInterval(countdownInterval);
                             // Redirect to home if time is up
@@ -262,14 +270,17 @@
 
                 }, 500); // Wait for fade out
                 
-            }, 3000); 
+            }, 10000); 
         });
 
         // FLIP FLASHCARD FUNCTION
         showAnswerBtn.addEventListener('click', () => {
             // Play success sound
             successSound.currentTime = 0;
-            successSound.play().catch(e => console.log('Audio play failed', e));
+            successSound.play().catch(e => {
+                console.log('Audio play failed', e);
+                alert("Gagal memutar suara: " + e.message + ". Coba periksa apakah file audionya valid dan tidak diblokir browser.");
+            });
 
             // Stop the timer when answer is shown
             clearInterval(countdownInterval);

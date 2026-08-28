@@ -14,7 +14,7 @@
   <div class="app-brand demo">
     <a href="" class="app-brand-link">
       <span class="app-brand-logo demo" style="overflow: hidden;">
-        <img src="{{ asset('assets/img/logo/logo.png') }}" alt="BHC Logo" style="max-height: 45px;">
+        <img src="{{ asset('assets/img/logo/logo.png') }}" alt="Logo" style="max-height: 45px;">
       </span>
     </a>
 

@@ -18,7 +18,7 @@
 
         <div class="card shadow-sm border-0">
             <div class="card-body p-8 text-center">
-                <img src="{{ asset('assets/img/logo/logo.png') }}" alt="BHC Logo" class="mb-3" style="max-height: 150px;">
+                <img src="{{ asset('assets/img/logo/logo.png') }}" alt="Logo" class="mb-3" style="max-height: 150px;">
                 
                 <form action="{{ route('quiz.register') }}" method="POST">
                     @csrf

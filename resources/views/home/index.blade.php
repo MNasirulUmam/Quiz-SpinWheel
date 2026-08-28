@@ -6,7 +6,7 @@
     <div class="col-12 mb-4">
         <div class="card">
             <div class="card-body">
-                <p>Welcome to BHC Quiz Dashboard.</p>
+                <p>Welcome to Wheel of Fortune.</p>
             </div>
         </div>
     </div>
