@@ -44,5 +44,30 @@
     <!-- Main JS -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
+    <!-- Idle Auto Refresh Script -->
+    <script>
+        let idleTime = 0;
+        const idleLimit = 90; // 90 detik
+
+        function resetTimer() {
+            idleTime = 0;
+        }
+
+        function timerIncrement() {
+            idleTime++;
+            if (idleTime >= idleLimit) {
+                // Refresh ke halaman utama setelah 90 detik tidak ada aktivitas
+                window.location.href = "{{ url('/') }}";
+            }
+        }
+
+        // Jalankan timer setiap 1 detik
+        setInterval(timerIncrement, 1000);
+
+        // Reset timer jika ada aktivitas
+        ['mousemove', 'mousedown', 'keypress', 'touchstart', 'scroll'].forEach(evt => 
+            document.addEventListener(evt, resetTimer, true)
+        );
+    </script>
 </body>
 </html>

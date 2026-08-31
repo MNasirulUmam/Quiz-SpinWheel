@@ -119,6 +119,28 @@
         margin-bottom: 1.5rem;
     }
 
+    /* Timeout styles (merah) */
+    .flashcard.timeout .flashcard-back {
+        border-top-color: #dc3545;
+    }
+    .flashcard.timeout .text-success {
+        color: #dc3545 !important;
+    }
+    .flashcard.timeout .answer-text {
+        color: #dc3545;
+    }
+    .flashcard.timeout .btn-success {
+        background-color: #dc3545 !important;
+        border-color: #dc3545 !important;
+        box-shadow: 0 4px 6px rgba(220, 53, 69, 0.3) !important;
+    }
+    .flashcard.timeout .btn-success:hover,
+    .flashcard.timeout .btn-success:focus,
+    .flashcard.timeout .btn-success:active {
+        background-color: #c82333 !important;
+        border-color: #bd2130 !important;
+    }
+
     .badge-category {
         position: absolute;
         top: 15px;
@@ -263,8 +285,13 @@
 
                         if (timeLeft <= 0) {
                             clearInterval(countdownInterval);
-                            // Redirect to home if time is up
-                            window.location.href = "{{ route('quiz.index') }}";
+                            
+                            // Tambahkan class timeout untuk mengubah warna menjadi merah
+                            flashcardSection.classList.add('timeout');
+                            
+                            // Tampilkan jawaban (flip flashcard) secara otomatis
+                            flashcardSection.classList.add('is-flipped');
+                            timerDisplay.style.display = 'none';
                         }
                     }, 1000);
 
